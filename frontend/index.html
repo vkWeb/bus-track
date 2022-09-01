@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <title>Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid black;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Bus Tracking</h1>
+
+    <div id="map"></div>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+        defer>
+        </script>
+
+    <script>
+        let i = 0;
+        lats_lngs_arr = [
+            { lat: 21.257482523745953, lng: 81.62373698510889 },
+            { lat: 21.257482523745953, lng: 81.62373698510889 },
+            { lat: 21.257482523745953, lng: 81.62373698510889 },
+            { lat: 21.287009796319026, lng: 81.7223997935507 },
+            { lat: 21.286382999064813, lng: 81.72094229591258 },
+            { lat: 21.28126904277457, lng: 81.70784000457013 },
+            { lat: 21.280549240036496, lng: 81.706037560188 },
+            { lat: 21.279669476351255, lng: 81.70354847032695 },
+        ];
+
+        function initMap() {
+            const ashoka_student = { lat: 21.263159888453014, lng: 81.67479396953739 };
+            const saddu_bus = { lat: 21.288890171793334, lng: 81.72766920636127 };
+
+
+            let map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13.5,
+                center: ashoka_student,
+            });
+
+            let ashoka_student_mrkr = new google.maps.Marker({
+                position: ashoka_student,
+                map: map,
+            });
+
+            let saddu_bus_mrkr = new google.maps.Marker({
+                position: saddu_bus,
+                map: map,
+                animation: google.maps.Animation.BOUNCE
+            });
+
+
+            setTimeout(() => {
+                if (i < lats_lngs_arr.length) {
+                    const lat = lats_lngs_arr[i].lat;
+                    const lng = lats_lngs_arr[i].lng;
+                    const newLatLng = new google.maps.LatLng(lat, lng);
+                    saddu_bus_mrkr.setPosition(newLatLng);
+                    i++;
+                }
+            }, 4000);
+        }
+
+        window.initMap = initMap;
+    </script>
+</body>
+
+</html>
